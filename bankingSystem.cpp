@@ -8,6 +8,7 @@
 #include <cmath>
 #include "bankingSystem.h"
 
+using namespace std;
 // Function to convert the timestamp string into a uint64_t
 uint64_t convertTimestamp(const std::string &timestamp)
 {

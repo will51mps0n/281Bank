@@ -69,5 +69,6 @@ int main(int argc, char* argv[]) {
     
     Bank bank(userTable, options.verbose);
     bank.processCommands();
+    //bank.deleteNewTransactions();
     return 0;
 }

@@ -14,16 +14,18 @@ struct User;
 
 struct Transaction
 {
+    // change pointers to users to names, then use the hash map to find them instead
     uint64_t executionDate;
     uint32_t transactionID;
-    User *recipient;
-    User *sender;
+    std::string recipient;
+    std::string sender;
     uint64_t amount;
     char feeType;
     uint64_t feeAmount = 0;
+    bool executed = false;
 
 
-    Transaction(uint64_t execDate, User *receive, User *send, uint64_t amt, char ft)
+    Transaction(uint64_t execDate, std::string receive, std::string send, uint64_t amt, char ft)
         : executionDate(execDate), transactionID(getNextTransactionID()), recipient(receive), sender(send), amount(amt), feeType(ft) {}
     
     private:

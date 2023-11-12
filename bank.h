@@ -5,8 +5,10 @@
 #include <vector>
 #include <queue>
 #include <map>
+#include <set>
 #include <cmath>
 #include <algorithm>
+
 #include "bankingSystem.h"
 
 struct CompareTransactions
@@ -33,7 +35,7 @@ class Bank
 private:
     std::unordered_map<std::string, User> validIps;
     std::unordered_map<std::string, User> users;
-    std::vector<Transaction *> transactionVec;
+    std::vector<Transaction> transactionSet;
     // could also make a vector of transactions ordered by time
     std::vector<uint64_t> timeStamps;
     // comparison functor
@@ -58,8 +60,10 @@ public:
     bool validateTransaction(const Transaction &transaction);
     void processTransactions(uint64_t time);
     void processCommands();
-
+    void summarizeDay();
     // for querying
+    void deleteNewTransactions();
+    void printTransactionSet();
 };
 
 Bank::Bank(const std::unordered_map<std::string, User> &users, bool vb)
@@ -97,26 +101,30 @@ void Bank::processCommands()
     // if not::do the rest of the transactions
     // if we break from loop, we must have reached $$$,
     // so we go into query mode
-     while (std::cin >> operation)
-     {
-         switch (operation[0])
-         {
-         case 'l':
-             listTransactions();
-             break;
-         // logout
-         case 'r':
-             bankRevenue();
-             break;
-         // place transaction
-         case 'h':
-             eatComment();
-             break;
-         }
-         std::cin >> operation;
-     }
+    while (std::cin >> operation)
+    {
+       // std::cout << "Read operation: "<< operation << std::endl; // Debug output
+        switch (operation[0])
+        {
+        case 'l':
+            listTransactions();
+            break;
+        // logout
+        case 'r':
+            bankRevenue();
+            break;
+        // place transaction
+        case 'h':
+            customerHistory();
+            break;
+        case 's':
+        //std::cout << "summarize " <<std::endl;
+            summarizeDay();
+            break;
+        }
+    }
     // for debugging
-    std::cout << "DONE" << std::endl;
+    // std::cout << "DONE" << std::endl;
 }
 
 void Bank::login()
@@ -218,10 +226,10 @@ void Bank::placeTransaction()
     }
     // feeType check if its o or s
     // verified they exist so we can just call this:
-    User *senderUser = &users.at(sender); // Use pointers instead of references
-    User *recipientUser = &users.at(recipient);
+    //User *senderUser = &users.at(sender); // Use pointers instead of references
+   // User *recipientUser = &users.at(recipient);
 
-    Transaction newTransaction(execTimeInt, recipientUser, senderUser, amtInt, feeType);
+    Transaction *newTransaction = new Transaction(execTimeInt, recipient, sender, amtInt, feeType);
     // transactions.push(newTransaction);
 
     // the transaction is now in the PQ of transactions
@@ -236,18 +244,34 @@ void Bank::placeTransaction()
         std::cout << "Transaction placed at " << timeStampInt << ": $" << amt << " from "
                   << sender << " to " << recipient << " at " << execTimeInt << "." << std::endl;
     }
-    transactions.push(newTransaction);
+    transactions.push(*newTransaction);
+    // std::cout << "inserting new transaction" << std::endl;
+    //delete newTransaction;
+    // std::cout << "transaction: " << newTransaction.transactionID << std::endl;
+    // std::cout << "transaction date: " << newTransaction.executionDate << std::endl;
+
+    // std::cout << transactionSet.size() << std::endl;
 }
 
+void Bank::printTransactionSet() {
+    for (auto &item : transactionSet) {
+        std::cout << "Transaction : ";
+        std::cout << item.transactionID << " "
+                << item.executionDate << " "
+                << item.feeAmount << std::endl;
+    }
+}
 void Bank::processTransactions(uint64_t timeStampInt)
 {
+    //check function
     while (!transactions.empty() && timeStampInt >= transactions.top().executionDate)
     {
         Transaction *currentTransaction = const_cast<Transaction *>(&transactions.top());
         transactions.pop();
         // uint64_t amount = currentTransaction->amount;
-        User &transactionSender = users.at(currentTransaction->sender->userID);
-        User &transactionRecipient = users.at(currentTransaction->recipient->userID);
+        
+        User transactionSender = users.at(currentTransaction->sender);
+        User transactionRecipient = users.at(currentTransaction->recipient);
         // make a discount function -- Not sure how to check if longstanding bank member
         bool discount = validateDiscount(transactionSender.timestamp);
         uint64_t fee = calculateFee(currentTransaction->amount, discount);
@@ -292,11 +316,16 @@ void Bank::processTransactions(uint64_t timeStampInt)
         transactionSender.balance -= currentTransaction->amount;
         transactionRecipient.balance += currentTransaction->amount;
 
-        transactionVec.push_back(currentTransaction);
         transactionSender.userOutgoingTransactions.push_back(currentTransaction);
         transactionRecipient.userIncomingTransactions.push_back(currentTransaction);
+
+       // printTransactionSet();
+        transactionSet.push_back(*currentTransaction);
+        //printTransactionSet();
+
+        currentTransaction->executed = true;
         // Have to parse current transaction execution date to time
-        std::cout << "Transaction executed at " << currentTransaction->executionDate << " $"
+        std::cout << "Transaction executed at: " << currentTransaction->executionDate << " $"
                   << currentTransaction->amount << " from " << transactionSender.userID << " to " << transactionRecipient.userID << "." << std::endl;
     }
 }
@@ -392,6 +421,14 @@ bool Bank::fraudCheck(const std::string &sender, const std::string &ip)
     }
     return true;
 }
+/*bool compareByExecutionDate(const Transaction *lhs, const Transaction *rhs)
+{
+    return lhs->executionDate < rhs->executionDate;
+}*/
+
+auto comp = [](const Transaction& lhs, uint64_t rhs) { return lhs.executionDate > rhs; };
+
+
 
 void Bank::listTransactions()
 {
@@ -400,48 +437,46 @@ void Bank::listTransactions()
 
     uint64_t x = convertTimestamp(executionTimeX);
     uint64_t y = convertTimestamp(executionTimeY);
-    int transactionCount = 0;
 
-    auto comp = [](const Transaction *lhs, uint64_t rhs)
-    { return lhs->executionDate < rhs; };
-
-    // Use std::lower_bound with comparator
-    auto it = std::lower_bound(transactionVec.begin(), transactionVec.end(), x, comp);
-
-    for (auto i = it; i != transactionVec.end(); ++i)
+    if (x > y)
     {
-        if ((*i)->executionDate >= x && (*i)->executionDate < y)
-        {
-          if ((*i)->amount == 1) {
-                std::cout << (*i)->transactionID << ": " << (*i)->sender
-                           << " sent " << (*i)->amount << " dollar to "
-                           << (*i)->recipient << " at " << (*i)->executionDate
-                           << "." << std::endl;
-          }
-          else {
-                std::cout << (*i)->transactionID << ": " << (*i)->sender
-                           << " sent " << (*i)->amount << " dollars to "
-                           << (*i)->recipient << " at " << (*i)->executionDate
-                           << "." << std::endl;
-          }
-          transactionCount++;
-        }
-        if ((*i)->executionDate > y)
-        {
-            break;
+        std::cerr << "Invalid input: start time must be less than end time." << std::endl;
+        return;
+    }
+    std::cout << "time 1: " << x << std::endl << "time 2: " << y << std::endl;
+    
+    int transactionCount = 0;
+    for (const auto &transPtr : transactionSet)
+    {
+        std::cout << "Transaction : ";
+        std::cout << transPtr.transactionID << " "
+                << transPtr.executionDate << " "
+                <<  std::endl;
+
+        if (transPtr.executionDate >= x && transPtr.executionDate < y){
+            std::string amountStr = std::to_string(transPtr.amount) + (transPtr.amount == 1 ? " dollar" : " dollars");
+            std::cout << transPtr.transactionID << ": " << transPtr.sender
+                      << " sent " << amountStr << " to "
+                      << transPtr.recipient << " at " << transPtr.executionDate
+                      << "." << std::endl;
+            transactionCount++;
         }
     }
-    if (transactionCount == 1)
+
+    if (transactionCount == 0)
     {
-        std::cout << "There was " << transactionCount << " transactions that were placed between time x to y."
-                  << std::endl;
+        std::cout << "No transactions were placed between time " << x << " to " << y << std::endl;
+    }
+    else if (transactionCount == 1)
+    {
+        std::cout << "There was 1 transaction that was placed between time " << x << " to " << y << std::endl;
     }
     else
     {
-        std::cout << "There were " << transactionCount << " transactions that were placed between time x to y."
-                  << std::endl;
+        std::cout << "There were " << transactionCount << " transactions that were placed between time " << x << " to " << y << std::endl;
     }
 }
+
 void timeIntervalOutput(uint64_t time)
 {
     uint64_t seconds = (time) % 100;
@@ -494,25 +529,24 @@ void timeIntervalOutput(uint64_t time)
 }
 void Bank::bankRevenue()
 {
+    //std::cout << "MADE IT" << std::endl;
     std::string executionTimeX, executionTimeY;
     std::cin >> executionTimeX >> executionTimeY;
 
-    uint64_t x = convertTimestamp(executionTimeX);
+     uint64_t x = convertTimestamp(executionTimeX);
     uint64_t y = convertTimestamp(executionTimeY);
     uint64_t bankRev = 0;
-    auto comp = [](const Transaction *lhs, uint64_t rhs)
-    { return lhs->executionDate < rhs; };
 
-    // Use std::lower_bound with the corrected comparator
-    auto it = std::lower_bound(transactionVec.begin(), transactionVec.end(), x, comp);
+    auto comp = [](const Transaction& lhs, uint64_t rhs) { return lhs.executionDate > rhs; };
+    auto it = std::lower_bound(transactionSet.begin(), transactionSet.end(), x, comp);
 
-    for (auto i = it; i != transactionVec.end(); ++i)
+    for (auto i = it; i != transactionSet.end(); ++i)
     {
-        if ((*i)->executionDate >= x && (*i)->executionDate < y)
+        if (i->executionDate >= x && i->executionDate < y)
         {
-            bankRev += (*i)->feeAmount;
+            bankRev += i->feeAmount;
         }
-        if ((*i)->executionDate > y)
+        if (i->executionDate > y)
         {
             break;
         }
@@ -535,13 +569,69 @@ void Bank::customerHistory()
         std::cout << "User " << user_id << " does not exist." << std::endl;
         return;
     }
-    for (size_t i = userIt->second.userIncomingTransactions.size() - 1;
-        i < userIt->second.userIncomingTransactions.size(); i++)
+    std::cout << "Customer " << userIt->second.userID << " account summary:" << std::endl;
+    std::cout << "Balance: $" << userIt->second.balance << std::endl;
+    uint64_t userTransactionInt = userIt->second.userIncomingTransactions.size() + userIt->second.userOutgoingTransactions.size();
+    std::cout << "Total # of transactions: " << userTransactionInt << std::endl;
+    std::cout << "Incoming " << userIt->second.userIncomingTransactions.size() << ":" << std::endl;
+
+    if (!userIt->second.userIncomingTransactions.empty())
     {
-        Transaction *currentTransaction = userIt->second.userIncomingTransactions[i];
-        std::cout << currentTransaction->transactionID
-                  << ": " << currentTransaction->sender << " sent" << std::endl;
+        for (size_t i = userIt->second.userIncomingTransactions.size() - 1;
+             i < userIt->second.userIncomingTransactions.size(); i++)
+        {
+            Transaction *currentTransaction = userIt->second.userIncomingTransactions[i];
+            std::cout << currentTransaction->transactionID
+                      << ": " << currentTransaction->sender << " sent" << std::endl;
+        }
     }
+   std::cout << "Outgoing " << userIt->second.userOutgoingTransactions.size() << ":" << std::endl;
+    if (!userIt->second.userOutgoingTransactions.empty())
+    {
+        for (size_t i = 0; i < userIt->second.userOutgoingTransactions.size(); i++)
+        {
+            Transaction *currentTransaction = userIt->second.userOutgoingTransactions[i];
+            std::cout << currentTransaction->transactionID
+                      << ": " << currentTransaction->sender << " sent "
+                      << currentTransaction->amount << " to " << currentTransaction->recipient
+                      << " at " << currentTransaction->executionDate << "." << std::endl;
+        }
+    }
+}
+
+void Bank::summarizeDay()
+{
+    std::string time;
+    std::cin >> time;
+    uint64_t day = convertTimestamp(time);
+    uint64_t day2 = day + 1000000;
+    std::cout << "Summary of [" << day << ", " << day2 << "): "
+              << std::endl;
+    //initlaize to -1 for debugging
+    int transactionCount = -1;
+    uint64_t bankProfit = 0;
+     for (const auto &transPtr : transactionSet)
+    {
+        
+        std::cout << "Transaction : ";
+        std::cout << transPtr.transactionID << " "
+                << transPtr.executionDate << " "
+                <<  std::endl;
+        if (transPtr.executionDate >= day && transPtr.executionDate < day2 && transPtr.executed)
+        {
+                std::string amountStr = std::to_string(transPtr.amount) + (transPtr.amount == 1 ? " dollar" : " dollars");
+                std::cout << transPtr.transactionID << ": " << transPtr.sender
+                      << " sent " << amountStr << " to "
+                      << transPtr.recipient << " at " << transPtr.executionDate
+                      << "." << std::endl;
+            transactionCount++;
+            //bankProfit +=userIt->second.fee;
+
+        }
+    }   
+   std::cout << "There were a total of " << transactionCount << " transactions, 281 bank has collected "
+            << bankProfit << " dollars in fees." << std::endl;
+ 
 }
 
 // use a deque to store transactions
