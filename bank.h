@@ -281,7 +281,10 @@ if (senderIt == users.end() || recipientIt == users.end()) {
 
     User* transactionSender = &(senderIt->second);
     User* transactionRecipient = &(recipientIt->second);
-        bool discount = validateDiscount(transactionSender->timestamp);
+        //Debug:
+        //std::cout << "Transaction sender timestamp: " << transactionSender->timestamp << std::endl;
+        uint64_t loyaltyTime = (currentTransaction->executionDate) - (transactionSender->timestamp);
+        bool discount = validateDiscount(loyaltyTime);
         uint64_t fee = calculateFee(currentTransaction->amount, discount);
         bool noTransaction = false;
         switch (currentTransaction->feeType)
@@ -542,8 +545,8 @@ void Bank::bankRevenue()
     uint64_t y = convertTimestamp(executionTimeY);
     uint64_t bankRev = 0;
 
-    auto comp = [](const Transaction& lhs, uint64_t rhs) { return lhs.executionDate > rhs; };
-    auto it = std::lower_bound(transactionSet.begin(), transactionSet.end(), x, comp);
+    
+    auto it = transactionSet.begin();
 
     for (auto i = it; i != transactionSet.end(); ++i)
     {
@@ -645,9 +648,8 @@ void Bank::summarizeDay()
 
         }
     }   
-   std::cout << "There were a total of " << transactionCount << " transactions, 281 bank has collected "
-            << bankProfit << " dollars in fees." << std::endl;
- 
+ std::cout << "There was a total of " << transactionCount << " transaction" << (transactionCount == 1 ? "" : "s") 
+            << ", 281Bank has collected "<< bankProfit << (bankProfit == 1 ? " dollar " : " dollars ") << "in fees." << std::endl;
 }
 
 Transaction Bank::findTransaction(int transactionId) {

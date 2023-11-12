@@ -1,0 +1,35 @@
+# Transaction with non-existent sender
+login alice 111111 192.168.1.2
+place 08:02:01:40:22:36 192.168.1.2 dave bob 1000 08:02:02:40:22:34 s
+out alice 192.168.1.2
+
+# Transaction with non-existent recipient
+login bob 222222 192.168.1.3
+place 08:02:01:40:22:37 192.168.1.3 bob eve 500 08:02:02:40:22:35 s
+out bob 192.168.1.3
+
+# Transaction with sender not logged in
+place 08:02:01:40:22:38 192.168.1.4 charlie alice 1500 08:02:02:40:22:36 s
+
+# Transaction from a fraudulent IP
+login charlie 333333 192.168.1.4
+place 08:02:01:40:22:39 10.0.0.1 charlie alice 2000 08:02:02:40:22:37 s
+out charlie 192.168.1.4
+
+# Transaction exceeding maximum fee
+login alice 111111 192.168.1.2
+place 08:02:01:40:22:40 192.168.1.2 alice bob 50000 08:02:03:40:22:38 o
+out alice 192.168.1.2
+
+$$$
+# Listing transactions should show the successful one only
+l 08:02:01:40:22:36 08:03:01:40:22:39
+
+# Checking revenue, including the maximum fee
+r 08:02:01:40:22:36 08:03:01:40:22:39
+
+# Checking history for alice, should include the large transaction
+h alice
+
+# Summarize day for failed and successful transactions
+s 08:02:01:40:22:36

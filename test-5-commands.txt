@@ -1,0 +1,41 @@
+# Loyal user login who will qualify for a loyalty discount
+login loyaluser 123456 10.10.10.10
+
+# Multiple transactions with the same execution date from loyaluser to regularuser1
+place 09:01:01:00:00:01 10.10.10.10 loyaluser regularuser1 1000 14:01:01:00:00:00 s
+place 09:01:01:00:00:02 10.10.10.10 loyaluser regularuser1 2000 14:01:01:00:00:00 s
+place 09:01:01:00:00:03 10.10.10.10 loyaluser regularuser1 3000 14:01:01:00:00:00 s
+place 09:01:01:00:00:04 10.10.10.10 loyaluser regularuser1 4000 14:01:01:00:00:00 s
+place 09:01:01:00:00:05 10.10.10.10 loyaluser regularuser1 5000 14:01:01:00:00:00 s
+place 09:01:01:00:00:06 10.10.10.10 loyaluser regularuser1 6000 14:01:01:00:00:00 s
+place 09:01:01:00:00:07 10.10.10.10 loyaluser regularuser1 7000 14:01:01:00:00:00 s
+place 09:01:01:00:00:08 10.10.10.10 loyaluser regularuser1 8000 14:01:01:00:00:00 s
+place 09:01:01:00:00:09 10.10.10.10 loyaluser regularuser1 9000 14:01:01:00:00:00 s
+place 09:01:01:00:00:10 10.10.10.10 loyaluser regularuser1 10000 14:01:01:00:00:00 s
+place 09:01:01:00:00:11 10.10.10.10 loyaluser regularuser1 11000 14:01:01:00:00:00 s
+place 09:01:01:00:00:11 10.10.10.10 loyaluser brokeuser 11000 14:01:01:00:00:00 o
+place 09:01:01:00:00:11 10.10.10.10 brokeuser regularuser1 11000 14:01:01:00:00:00 s
+
+# One more transaction to a different user on the same execution date
+place 09:01:01:00:00:12 10.10.10.10 loyaluser regularuser2 12000 14:01:01:00:00:00 s
+
+# Logout loyaluser
+out loyaluser 10.10.10.10
+
+# Regular user login and place a transaction without a discount
+login regularuser3 456789 10.10.10.11
+place 09:01:02:00:00:01 10.10.10.11 regularuser3 regularuser2 13000 14:01:02:00:00:00 s
+out regularuser3 10.10.10.11
+
+$$$
+# Query to list all transactions executed on a specific date
+l 14:01:01:00:00:00 14:01:02:00:00:00
+
+# Query to get the bank revenue from the transactions on the same day
+r 14:01:01:00:00:00 14:01:02:00:00:00
+
+# Query to get the customer history for loyaluser
+h loyaluser
+
+# Summarize the day for the transactions
+s 14:01:01:00:00:00

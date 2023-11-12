@@ -1,0 +1,16 @@
+# Multiple logins and transactions to test session handling
+login dave 444444 192.168.2.1
+login eve 555555 192.168.2.2
+place 08:02:01:40:22:41 192.168.2.1 dave eve 1000 08:02:04:40:22:39 s
+place 08:02:01:40:22:42 192.168.2.2 eve dave 500 08:02:04:40:22:40 s
+out dave 192.168.2.1
+out eve 192.168.2.2
+
+# Longstanding user dave places a transaction to test the loyalty discount
+login dave 444444 192.168.2.1
+place 08:02:01:40:22:43 192.168.2.1 dave eve 20000 08:02:04:40:22:41 s
+out dave 192.168.2.1
+
+$$$
+# Summarize day to include the discount transaction
+s 08:02:01:40:22:41
