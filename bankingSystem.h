@@ -43,8 +43,8 @@ struct User {
     std::string PIN;
     bool loggedIn = false;
     uint64_t balance;
-    std::deque<Transaction*> userIncomingTransactions;
-    std::deque<Transaction*> userOutgoingTransactions;
+    std::deque<int> userIncomingTransactions;
+    std::deque<int> userOutgoingTransactions;
 };
 
 // convert the timestamp string into a uint64_t
