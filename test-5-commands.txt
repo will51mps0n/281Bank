@@ -19,23 +19,16 @@ place 09:01:01:00:00:11 10.10.10.10 brokeuser regularuser1 11000 14:01:01:00:00:
 # One more transaction to a different user on the same execution date
 place 09:01:01:00:00:12 10.10.10.10 loyaluser regularuser2 12000 14:01:01:00:00:00 s
 
-# Logout loyaluser
 out loyaluser 10.10.10.10
 
-# Regular user login and place a transaction without a discount
+# Regular user login and place a transaction no a discount
 login regularuser3 456789 10.10.10.11
 place 09:01:02:00:00:01 10.10.10.11 regularuser3 regularuser2 13000 14:01:02:00:00:00 s
 out regularuser3 10.10.10.11
 
 $$$
-# Query to list all transactions executed on a specific date
 l 14:01:01:00:00:00 14:01:02:00:00:00
 
-# Query to get the bank revenue from the transactions on the same day
 r 14:01:01:00:00:00 14:01:02:00:00:00
-
-# Query to get the customer history for loyaluser
 h loyaluser
-
-# Summarize the day for the transactions
 s 14:01:01:00:00:00

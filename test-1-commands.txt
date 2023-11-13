@@ -1,33 +1,23 @@
-# Basic login and transaction placement
 login paoletti 372819 192.168.1.1
 place 08:02:01:40:22:35 192.168.1.1 paoletti mmdarden 10000 08:02:04:40:22:34 s
 out paoletti 192.168.1.1
 
-# Attempt to place a transaction with a timestamp earlier than the previous place
 place 08:02:01:40:22:33 192.168.1.1 paoletti mmdarden 5000 08:02:04:40:22:34 s
 
-# Attempt to place a transaction with an execution date before its own timestamp
 place 08:02:01:40:22:40 192.168.1.1 paoletti mmdarden 5000 08:02:01:40:22:39 s
 
-# Attempt to login with an incorrect PIN
 login paoletti 372818 192.168.1.1
 
-# Attempt to logout without an active session
 out paoletti 192.168.1.1
 
-# Attempt to place transaction with insufficient funds
 place 08:03:01:40:22:34 192.168.1.1 mmdarden paoletti 35000 08:03:02:40:22:34 s
 
-# Switching to queries
 $$$
-# List transactions in a given range
 l 08:02:01:40:22:35 08:04:01:40:22:34
 
-# Calculate bank revenue in a given range
 r 08:02:01:40:22:35 08:04:01:40:22:34
 
-# Customer history for a user
 h paoletti
 
-# Summarize a day's transactions
+# a day's transactions
 s 08:02:01:40:22:35

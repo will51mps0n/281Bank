@@ -1,16 +1,15 @@
-# Multiple logins and transactions to test session handling
-login dave 444444 192.168.2.1
-login eve 555555 192.168.2.2
-place 08:02:01:40:22:41 192.168.2.1 dave eve 1000 08:02:04:40:22:39 s
-place 08:02:01:40:22:42 192.168.2.2 eve dave 500 08:02:04:40:22:40 s
-out dave 192.168.2.1
-out eve 192.168.2.2
+# Multiple logins and transactions to test session 
+login jbelly 444444 192.168.2.1
+login al 555555 192.168.2.2
+place 08:02:01:40:22:41 192.168.2.1 jbelly al 1000 08:02:04:40:22:39 s
+place 08:02:01:40:22:42 192.168.2.2 al jbelly 500 08:02:04:40:22:40 s
+out jbelly 192.168.2.1
+out al 192.168.2.2
 
-# Longstanding user dave places a transaction to test the loyalty discount
-login dave 444444 192.168.2.1
-place 08:02:01:40:22:43 192.168.2.1 dave eve 20000 08:02:04:40:22:41 s
-out dave 192.168.2.1
+login jbelly 444444 192.168.2.1
+place 08:02:01:40:22:43 192.168.2.1 jbelly al 20000 08:02:04:40:22:41 s
+out jbelly 192.168.2.1
 
 $$$
-# Summarize day to include the discount transaction
+# Summarize day to include discount  -- 
 s 08:02:01:40:22:41
