@@ -1,0 +1,27 @@
+User Jbelly logged in.
+User atummy logged in.
+Transaction placed at 101000002: $990 from Jbelly to atummy at 102000002.
+Transaction placed at 101000003: $45000 from atummy to Jbelly at 102000003.
+Transaction placed at 101000004: $100 from atummy to Jbelly at 102000004.
+Transaction placed at 101000005: $2000 from atummy to Jbelly at 102000005.
+Select a time less than three days in the future.
+User Jbelly logged out.
+User atummy logged out.
+Insufficient funds to process transaction 0.
+Insufficient funds to process transaction 1.
+Transaction executed at 102000004: $100 from atummy to Jbelly.
+Insufficient funds to process transaction 3.
+Customer Jbelly account summary:
+Balance: $600
+Total # of transactions: 1
+Incoming 1:
+2: atummy sent 100 dollars to Jbelly at 102000004.
+Outgoing 0:
+Customer atummy account summary:
+Balance: $890
+Total # of transactions: 1
+Incoming 0:
+Outgoing 1:
+2: atummy sent 100 dollars to Jbelly at 102000004.
+Summary of [101000000, 102000000):
+There were a total of 0 transactions, 281Bank has collected 0 dollars in fees.

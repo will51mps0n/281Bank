@@ -37,6 +37,7 @@ CommandLineOptions parseArgs(int argc, char* argv[]) {
 
 
 int main(int argc, char* argv[]) {
+    std::ios_base::sync_with_stdio(false);
     CommandLineOptions options = parseArgs(argc, argv);
 
     // debug:
@@ -47,7 +48,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (options.registrationFile.empty()) {
-        std::cerr << "Registration file failed to open.\n";
+        std::cerr << "Registration file failed to open. \n";
         exit(1);
     }
 

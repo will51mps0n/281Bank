@@ -17,21 +17,71 @@ Transaction placed at 101000019: $1000 from Jbelly to Al at 101001001.
 Transaction placed at 101000020: $1000 from Jbelly to Al at 101001001.
 Transaction placed at 101000021: $1000 from Jbelly to Al at 101001001.
 User Al logged in.
-Transaction placed at 101000022: $1 from Al to Jbelly at 101010001.
+Transaction placed at 101000022: $1 from Al to Jbelly at 101000042.
+Transaction executed at 101000042: $1 from Al to Jbelly.
 Transaction executed at 101001001: $1 from Jbelly to Al.
 Insufficient funds to process transaction 1.
+Transaction executed at 101001001: $1 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+Transaction executed at 101001001: $1000 from Jbelly to Al.
+16: Al sent 1 dollar to Jbelly at 101000042.
 0: Jbelly sent 1 dollar to Al at 101001001.
-There was 1 transaction that was placed between time 101000000 to 20102000000.
+2: Jbelly sent 1 dollar to Al at 101001001.
+3: Jbelly sent 1000 dollars to Al at 101001001.
+4: Jbelly sent 1000 dollars to Al at 101001001.
+5: Jbelly sent 1000 dollars to Al at 101001001.
+6: Jbelly sent 1000 dollars to Al at 101001001.
+7: Jbelly sent 1000 dollars to Al at 101001001.
+8: Jbelly sent 1000 dollars to Al at 101001001.
+9: Jbelly sent 1000 dollars to Al at 101001001.
+10: Jbelly sent 1000 dollars to Al at 101001001.
+11: Jbelly sent 1000 dollars to Al at 101001001.
+12: Jbelly sent 1000 dollars to Al at 101001001.
+13: Jbelly sent 1000 dollars to Al at 101001001.
+14: Jbelly sent 1000 dollars to Al at 101001001.
+15: Jbelly sent 1000 dollars to Al at 101001001.
+There were 16 transactions that were placed between time 101000000 to 20102000000.
 Customer Jbelly account summary:
-Balance: $9999994
-Total # of transactions: 1
-Incoming 0:
-Outgoing 1:
-0: Jbelly sent 1 dollar to Al at 101001001.
-Customer Al account summary:
-Balance: $19996
-Total # of transactions: 1
+Balance: $9986914
+Total # of transactions: 11
 Incoming 1:
-0: Jbelly sent 1 dollar to Al at 101001001.
-Outgoing 0:
-281Bank has collected 10 dollars in fees over 1 year 1 month 1 day 1 hours 1 minute 1 second.
+16: Al sent 1 dollar to Jbelly at 101000042.
+Outgoing 10:
+6: Jbelly sent 1000 dollars to Al at 101001001.
+7: Jbelly sent 1000 dollars to Al at 101001001.
+8: Jbelly sent 1000 dollars to Al at 101001001.
+9: Jbelly sent 1000 dollars to Al at 101001001.
+10: Jbelly sent 1000 dollars to Al at 101001001.
+11: Jbelly sent 1000 dollars to Al at 101001001.
+12: Jbelly sent 1000 dollars to Al at 101001001.
+13: Jbelly sent 1000 dollars to Al at 101001001.
+14: Jbelly sent 1000 dollars to Al at 101001001.
+15: Jbelly sent 1000 dollars to Al at 101001001.
+Customer Al account summary:
+Balance: $32926
+Total # of transactions: 11
+Incoming 10:
+6: Jbelly sent 1000 dollars to Al at 101001001.
+7: Jbelly sent 1000 dollars to Al at 101001001.
+8: Jbelly sent 1000 dollars to Al at 101001001.
+9: Jbelly sent 1000 dollars to Al at 101001001.
+10: Jbelly sent 1000 dollars to Al at 101001001.
+11: Jbelly sent 1000 dollars to Al at 101001001.
+12: Jbelly sent 1000 dollars to Al at 101001001.
+13: Jbelly sent 1000 dollars to Al at 101001001.
+14: Jbelly sent 1000 dollars to Al at 101001001.
+15: Jbelly sent 1000 dollars to Al at 101001001.
+Outgoing 1:
+16: Al sent 1 dollar to Jbelly at 101000042.
+281Bank has collected 160 dollars in fees over 1 year 1 month 1 day 1 hours 1 minute 1 second.

@@ -1,0 +1,14 @@
+login Willdabeast 333333 192.168.1.1
+login Willdabeast 333333 192.168.1.2
+out Willdabeast 192.168.1.1
+place 05:01:01:00:00:00 192.168.1.1 Willdabeast BellyJ 100 05:01:04:00:00:00 o
+place 05:01:01:00:00:01 192.168.1.2 Willdabeast BellyJ 100 05:01:04:00:00:01 o
+login Jbelly 111111 192.168.1.1
+place 05:01:01:00:00:02 192.168.1.1 Jbelly atummy 100 05:01:04:00:00:02 o
+login atummy 222222 192.168.1.1 
+$$$
+l 05:01:01:00:00:01 05:01:04:00:00:01
+r 05:01:01:00:00:02 05:01:04:00:00:02
+h atummy
+h Jbelly
+s 05:01:04:00:00:00

@@ -1,0 +1,23 @@
+#This will test the dicount on min max and normal transactions amounts
+login Jbelly 111111 192.168.1.2
+login atummy 222222 192.168.1.2
+#These transactions shouldnt have discount:
+place 00:00:00:00:00:02 192.168.1.2 Jbelly atummy 1000 00:00:00:00:00:03 o
+#discount shouldnt apply: 
+place 04:99:99:99:99:99 192.168.1.2 Jbelly atummy 1000 05:00:00:00:00:00 o
+#discount should: 
+place 04:99:99:99:99:99 192.168.1.2 Jbelly atummy 1000 05:00:00:00:00:01 o
+#should: 
+place 04:99:99:99:99:99 192.168.1.2 Jbelly atummy 1000 05:00:00:00:00:02 o
+#should - do this on all types min max and normal: 
+place 05:00:00:00:00:03 192.168.1.2 Jbelly atummy 100 05:00:00:00:00:05 o
+place 05:00:00:00:00:04 192.168.1.2 Jbelly atummy 10000 05:00:00:00:00:06 s
+place 05:00:00:00:00:05 192.168.1.2 Jbelly atummy 100000 05:00:00:00:00:07 s
+$$$
+l 00:00:00:00:00:03 05:00:00:00:00:07 
+r 05:00:00:00:00:00 05:00:00:00:00:07
+r 00:00:00:00:00:00 10:00:06:00:13:00
+h atummy
+h Jbelly
+s 05:00:00:00:00:00
+s 04:99:99:99:99:99

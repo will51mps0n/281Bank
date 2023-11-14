@@ -6,8 +6,17 @@ echo "spec:"
 diff out.txt spec-output-verbose.txt
 echo 
 
+echo "test 13"
+./bank -v -f test-13-reg.txt<test-13-commands.txt > out.txt
+echo
+
+echo "test 12"
+./bank -v -f test-12-reg.txt<test-12-commands.txt > out.txt
+echo
+
 echo "test 11"
 ./bank -v -f test-11-reg.txt<test-11-commands.txt > out.txt
+diff out.txt t11-correct.txt
 echo
 
 echo "test 10"
@@ -48,6 +57,7 @@ echo
 echo "test 2"
 ./bank -v -f test-2-reg.txt<test-2-commands.txt > out.txt
 diff out.txt t2-correct.txt
+echo
 
 echo "test 1"
 ./bank -v -f test-1-reg.txt<test-1-commands.txt > out.txt
