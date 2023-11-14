@@ -658,23 +658,26 @@ void Bank::summarizeDay()
     // initlaize to -1 for debugging
     int transactionCount = 0;
     uint64_t bankProfit = 0;
-    for (const auto &transPtr : transactionSet)
+    auto it = std::lower_bound(transactionSet.begin(), transactionSet.end(),
+                               day, [](const Transaction &t, uint64_t value)
+                               { return value > t.executionDate; });
+    for (auto &transPtr = it;transPtr != transactionSet.end(); transPtr++)
     {
         // debugging!!:
         /*std::cout << "Transaction : ";
         std::cout << transPtr.transactionID << " "
                 << transPtr.executionDate << " "
                 <<  std::endl;*/
-        if (transPtr.executionDate >= day && transPtr.executionDate < day2)
+        if (transPtr->executionDate >= day && transPtr->executionDate < day2)
         {
-            std::string amountStr = std::to_string(transPtr.amount) + (transPtr.amount == 1 ? " dollar" : " dollars");
-            std::cout << transPtr.transactionID << ": " << transPtr.sender
+            std::string amountStr = std::to_string(transPtr->amount) + (transPtr->amount == 1 ? " dollar" : " dollars");
+            std::cout << transPtr->transactionID << ": " << transPtr->sender
                       << " sent " << amountStr << " to "
-                      << transPtr.recipient << " at " << transPtr.executionDate
+                      << transPtr->recipient << " at " << transPtr->executionDate
                       << "." << std::endl;
 
             transactionCount++;
-            bankProfit += transPtr.feeAmount;
+            bankProfit += transPtr->feeAmount;
         }
     }
     std::cout << "There" << (transactionCount == 1 ? " was " : " were ") << "a total of " << transactionCount << " transaction" << (transactionCount == 1 ? "" : "s")
