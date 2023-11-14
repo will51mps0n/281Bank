@@ -61,4 +61,5 @@ echo
 
 echo "test 1"
 ./bank -v -f test-1-reg.txt<test-1-commands.txt > out.txt
+diff out.txt t1-correct.txt
 echo

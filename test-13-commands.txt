@@ -5,7 +5,7 @@ login atummy 222222 192.168.1.2
 place 00:00:00:00:00:02 192.168.1.2 Jbelly atummy 1000 00:00:00:00:00:03 o
 #discount shouldnt apply: 
 place 04:99:99:99:99:99 192.168.1.2 Jbelly atummy 1000 05:00:00:00:00:00 o
-#discount should: 
+#discount shouldnt: 
 place 04:99:99:99:99:99 192.168.1.2 Jbelly atummy 1000 05:00:00:00:00:01 o
 #should: 
 place 04:99:99:99:99:99 192.168.1.2 Jbelly atummy 1000 05:00:00:00:00:02 o
