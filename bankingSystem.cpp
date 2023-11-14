@@ -9,6 +9,19 @@
 #include "bankingSystem.h"
 
 using namespace std;
+
+//func to conv to uint32
+uint32_t convertToUint32(const std::string &timestamp)
+{
+    //  colons and convert the  string into a large integer
+    std::string digits;
+    for (char c : timestamp)
+    {
+        if (isdigit(c))
+            digits.push_back(c);
+    }
+    return static_cast<uint32_t>(std::stoul(digits));
+}
 // Function to convert the timestamp string into a uint64_t
 uint64_t convertTimestamp(const std::string &timestamp)
 {
@@ -73,8 +86,8 @@ bool readAndStoreUserData(const std::string &filename, std::unordered_map<std::s
             */
             newUser.timestamp = convertTimestamp(userData[0]);
             newUser.userID = userData[1];
-            newUser.PIN = userData[2];
-            newUser.balance = std::stoull(userData[3]);
+            newUser.PIN = static_cast<uint32_t>(std::stoull(userData[2]));
+            newUser.balance = static_cast<uint32_t>(std::stoull(userData[3]));
         }
         catch (const std::invalid_argument &e)
         {

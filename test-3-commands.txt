@@ -11,5 +11,4 @@ place 08:02:01:40:22:43 192.168.2.1 jbelly al 20000 08:02:04:40:22:41 s
 out jbelly 192.168.2.1
 
 $$$
-# Summarize day to include discount  -- 
 s 08:02:01:40:22:41

@@ -1,0 +1,14 @@
+User jbelly logged in.
+User al logged in.
+Transaction placed at 80201402241: $1000 from jbelly to al at 80204402239.
+Transaction placed at 80201402242: $500 from al to jbelly at 80204402240.
+User jbelly logged out.
+User al logged out.
+User jbelly logged in.
+Transaction placed at 80201402243: $20000 from jbelly to al at 80204402241.
+User jbelly logged out.
+Transaction executed at 80204402239: $1000 from jbelly to al.
+Transaction executed at 80204402240: $500 from al to jbelly.
+Transaction executed at 80204402241: $20000 from jbelly to al.
+Summary of [80201000000, 80202000000):
+There were a total of 0 transactions, 281Bank has collected 0 dollars in fees.

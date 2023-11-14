@@ -1,0 +1,23 @@
+User al logged in.
+Sender dave does not exist.
+User al logged out.
+User jbelly logged in.
+Recipient eve does not exist.
+User jbelly logged out.
+Sender willdabeast is not logged in.
+User willdabeast logged in.
+Fraudulent transaction detected, aborting request.
+User willdabeast logged out.
+User al logged in.
+Transaction placed at 80201402240: $50000 from al to jbelly at 80203402238.
+User al logged out.
+Insufficient funds to process transaction 0.
+There were 0 transactions that were placed between time 80201402236 to 80301402239.
+281Bank has collected 0 dollars in fees over 1 month 3 seconds.
+Customer al account summary:
+Balance: $10000
+Total # of transactions: 0
+Incoming 0:
+Outgoing 0:
+Summary of [80201000000, 80202000000):
+There were a total of 0 transactions, 281Bank has collected 0 dollars in fees.

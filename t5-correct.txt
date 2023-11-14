@@ -1,0 +1,28 @@
+User loyaluser logged in.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+Select a time less than three days in the future.
+User loyaluser logged out.
+User regularuser3 logged in.
+Select a time less than three days in the future.
+User regularuser3 logged out.
+There were 0 transactions that were placed between time 140101000000 to 140102000000.
+281Bank has collected 0 dollars in fees over 1 day.
+Customer loyaluser account summary:
+Balance: $100000
+Total # of transactions: 0
+Incoming 0:
+Outgoing 0:
+Summary of [140101000000, 140102000000):
+There were a total of 0 transactions, 281Bank has collected 0 dollars in fees.

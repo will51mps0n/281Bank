@@ -1,0 +1,23 @@
+# Combined test case command file to test multiple scenarios
+# Scenario 1: User logs in from multiple IPs and tries to transact from an unregistered IP
+login atummy 123456 10.0.0.5
+login atummy 123456 10.0.0.6
+place 00:01:01:00:15:00 10.0.0.7 atummy jbelly 1500 00:01:02:00:00:00 s
+out atummy 10.0.0.5
+
+login jbelly 654321 10.0.0.3
+place 00:01:01:00:16:00 10.0.0.4 jbelly atummy 2000 00:01:02:00:00:00 o
+out jbelly 10.0.0.3
+
+# Scenario 3: Two transactions with the exact same timestamp to test order of execution
+login atummy 123456 10.0.0.1
+place 00:01:01:00:16:01 10.0.0.1 atummy jbelly 1000 00:01:02:00:00:00 o
+place 00:01:01:00:16:02 10.0.0.1 atummy jbelly 2000 00:01:02:00:00:00 s
+out atummy 10.0.0.1
+
+# Ensure all transactions are processed before queries
+$$$
+l 00:01:01:00:00:00 00:01:03:00:00:00
+h atummy
+h jbelly
+r 00:01:01:00:00:00 00:01:03:00:00:00

@@ -47,14 +47,14 @@ int main(int argc, char* argv[]) {
     }
 
     if (options.registrationFile.empty()) {
-        std::cerr << "Error: No registration file provided. Use -f option to specify the file.\n";
+        std::cerr << "Registration file failed to open.\n";
         exit(1);
     }
 
     std::unordered_map<std::string, User> userTable;
     if (!readAndStoreUserData(options.registrationFile, userTable)) {
-        std::cerr << "Failed to read user data from file.\n";
-        return 1;
+        std::cerr << "Error: Reading from cin has failed\n";
+        exit(1);
     }
 
     /* debiug: print the contents of the hash table initilaized in readand store data

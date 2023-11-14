@@ -1,0 +1,41 @@
+User Jbelly logged in.
+Transaction placed at 80201402233: $15000 from Jbelly to Al at 80202402234.
+User Jbelly logged out.
+User Al logged in.
+Transaction executed at 80202402234: $15000 from Jbelly to Al.
+Transaction placed at 80202402234: $20000 from Al to Willdabeast at 80203402235.
+User Al logged out.
+User Willdabeast logged in.
+Transaction executed at 80203402235: $20000 from Al to Willdabeast.
+Transaction placed at 80203402235: $10000 from Willdabeast to Jbelly at 80204402236.
+User Willdabeast logged out.
+Transaction executed at 80204402236: $10000 from Willdabeast to Jbelly.
+0: Jbelly sent 15000 dollars to Al at 80202402234.
+1: Al sent 20000 dollars to Willdabeast at 80203402235.
+2: Willdabeast sent 10000 dollars to Jbelly at 80204402236.
+There were 3 transactions that were placed between time 80201402233 to 80301402234.
+281Bank has collected 450 dollars in fees over 1 month 1 second.
+Customer Jbelly account summary:
+Balance: $44875
+Total # of transactions: 2
+Incoming 1:
+2: Willdabeast sent 10000 dollars to Jbelly at 80204402236.
+Outgoing 1:
+0: Jbelly sent 15000 dollars to Al at 80202402234.
+Customer Al account summary:
+Balance: $54725
+Total # of transactions: 2
+Incoming 1:
+0: Jbelly sent 15000 dollars to Al at 80202402234.
+Outgoing 1:
+1: Al sent 20000 dollars to Willdabeast at 80203402235.
+Customer Willdabeast account summary:
+Balance: $79950
+Total # of transactions: 2
+Incoming 1:
+1: Al sent 20000 dollars to Willdabeast at 80203402235.
+Outgoing 1:
+2: Willdabeast sent 10000 dollars to Jbelly at 80204402236.
+Summary of [80202000000, 80203000000):
+0: Jbelly sent 15000 dollars to Al at 80202402234.
+There was a total of 1 transaction, 281Bank has collected 150 dollars in fees.

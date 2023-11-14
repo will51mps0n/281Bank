@@ -1,0 +1,21 @@
+# User atummy will have more than 10 outgoing transactions to Jbelly
+# User Jbelly will have more than 10 incoming transactions from atummy
+login atummy 123456 10.0.0.1
+place 00:01:01:00:00:02 10.0.0.1 atummy Jbelly 1000 00:01:01:00:00:03 o
+place 00:01:01:00:00:03 10.0.0.1 atummy Jbelly 2000 00:01:01:00:00:04 o
+place 00:01:01:00:00:04 10.0.0.1 atummy Jbelly 3000 00:01:01:00:00:05 o
+place 00:01:01:00:00:05 10.0.0.1 atummy Jbelly 4000 00:01:01:00:00:06 o
+place 00:01:01:00:00:06 10.0.0.1 atummy Jbelly 5000 00:01:01:00:00:07 o
+place 00:01:01:00:00:07 10.0.0.1 atummy Jbelly 6000 00:01:01:00:00:08 o
+place 00:01:01:00:00:08 10.0.0.1 atummy Jbelly 7000 00:01:01:00:00:09 o
+place 00:01:01:00:00:09 10.0.0.1 atummy Jbelly 8000 00:01:01:00:00:10 o
+place 00:01:01:00:00:10 10.0.0.1 atummy Jbelly 9000 00:01:01:00:00:11 o
+place 00:01:01:00:00:11 10.0.0.1 atummy Jbelly 10000 00:01:01:00:00:12 o
+place 00:01:01:00:00:12 10.0.0.1 atummy Jbelly 11000 00:01:01:00:00:13 o
+place 00:01:01:00:00:13 10.0.0.1 atummy Jbelly 12000 00:01:01:00:00:14 o
+out atummy 10.0.0.1
+$$$
+h atummy
+h Jbelly
+s 00:01:01:00:00:02 00:01:01:00:00:14
+r 00:01:01:00:00:02 00:01:01:00:00:14 

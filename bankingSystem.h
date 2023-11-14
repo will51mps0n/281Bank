@@ -8,48 +8,50 @@
 #include <unordered_map>
 #include <vector>
 #include <deque>
+#include<set>
+#include <list>
 //forward declare user for transaction struct --
-
-struct User;
 
 struct Transaction
 {
-    // change pointers to users to names, then use the hash map to find them instead
-    uint64_t executionDate;
-    uint32_t transactionID;
-    std::string recipient;
-    std::string sender;
-    uint64_t amount;
-    char feeType;
-    uint64_t feeAmount = 0;
-    bool executed = false;
+    uint64_t executionDate; // 8 bytes
+    uint32_t amount;        // 8 bytes
+    uint32_t feeAmount = 0; // 8 bytes, initialize to 0
+    std::string recipient;  // Assuming a 32-byte string (small string optimization)
+    std::string sender;     // Assuming a 32-byte string (small string optimization)
+    uint32_t transactionID; // 4 bytes
+    char feeType;           // 1 byte
 
-
-    Transaction(uint64_t execDate, std::string receive, std::string send, uint64_t amt, char ft)
-        : executionDate(execDate), transactionID(getNextTransactionID()), recipient(receive), sender(send), amount(amt), feeType(ft) {}
+    Transaction(uint64_t execDate, std::string receive, std::string send, uint32_t amt, char ft)
+        : executionDate(execDate), amount(amt), recipient(std::move(receive)), sender(std::move(send)), transactionID(getNextTransactionID()), feeType(ft) {}
     
     private:
-    static uint32_t getNextTransactionID(){
+    static uint32_t getNextTransactionID()
+    {
         static uint32_t nextTransactionID = 0;
         return nextTransactionID++;
     }
 };
 
 struct User {
-    //may make a hash table later of logins and timestamps if
-    //users can log in and outmultiple times
-    uint64_t timestamp;
-    std::string userID;
-    std::string PIN;
-    bool loggedIn = false;
-    uint64_t balance;
-    std::deque<int> userIncomingTransactions;
-    std::deque<int> userOutgoingTransactions;
+    uint64_t timestamp; // 8 bytes
+    uint32_t balance;   // 8 bytes
+    uint32_t PIN;
+    std::set<std::string> userIps; // Set of IPs
+    std::string userID; // Assuming a 32-byte string (small string optimization)
+    std::deque<const Transaction*> userIncomingTransactions; // Deque of pointers to incoming transactions
+    std::deque<const Transaction*> userOutgoingTransactions; // Deque of pointers to outgoing transactions
+
+    bool isUserLoggedIn() const
+    {
+        return !userIps.empty();
+    }
 };
 
 // convert the timestamp string into a uint64_t
 uint64_t convertTimestamp(const std::string& timestamp);
 
+uint32_t convertToUint32 (const std::string& timestamp);
 // parse a delimited string into a vector of strings
 std::vector<std::string> parseInput(const std::string& input, char delimiter);
 

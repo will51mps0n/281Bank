@@ -1,0 +1,24 @@
+# Test commands to check singular vs. plural outputs
+login Jbelly 111111 192.168.1.1
+login atummy 222222 192.168.1.2
+
+# Transaction that will be executed in exactly 1 day
+place 00:01:01:00:00:02 192.168.1.1 Jbelly atummy 1 00:01:02:00:00:02 o
+
+# Transaction that will be executed in more than 1 day
+place 00:01:01:00:00:03 192.168.1.2 atummy Jbelly 2 00:01:03:00:00:03 o
+
+# Transaction that will fail due to insufficient funds, triggering "1 transaction" message
+place 00:01:01:00:00:04 192.168.1.1 Jbelly atummy 200 00:01:02:00:00:04 o
+
+# Logout commands to ensure both users have active sessions ending
+out Jbelly 192.168.1.1
+out atummy 192.168.1.2
+
+# Separator for switching to query mode
+$$$
+l 00:01:02:00:00:00 00:01:02:00:00:03
+h Jbelly
+h atummy
+r 00:01:01:00:00:00 00:01:02:00:00:00
+s 00:01:01:00:00:00

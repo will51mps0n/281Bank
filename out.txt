@@ -1,24 +1,37 @@
-Failed to log in mertg.
+User Jbelly logged in.
+Transaction placed at 101000001: $1 from Jbelly to Al at 101001001.
 Select a time less than three days in the future.
-User mertg logged in.
-Select a time less than three days in the future.
-Fraudulent transaction detected, aborting request.
-Transaction placed at 80301402236: $2000 from mertg to paoletti at 80302402234.
-Transaction executed at 80302402234: $2000 from mertg to paoletti.
-Transaction placed at 80504402236: $2000 from mertg to paoletti at 80505404434.
-User mertg logged out.
-Transaction executed at 80505404434: $2000 from mertg to paoletti.
-0: mertg sent 2000 dollars to paoletti at 80302402234.
-1: mertg sent 2000 dollars to paoletti at 80505404434.
-There were 2 transactions that were placed between time 80301402236 to 90301402234.
-281Bank has collected 40 dollars in fees over 20 months 5 days 71 hours 39 minutes 98 seconds.
-Customer mertg account summary:
-Balance: $15980
-Total # of transactions: 2
+Transaction placed at 101000003: $10000000 from Jbelly to Al at 101001001.
+Transaction placed at 101000004: $1 from Jbelly to Al at 101001001.
+Transaction placed at 101000005: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000006: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000007: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000008: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000009: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000010: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000011: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000016: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000017: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000018: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000019: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000020: $1000 from Jbelly to Al at 101001001.
+Transaction placed at 101000021: $1000 from Jbelly to Al at 101001001.
+User Al logged in.
+Transaction placed at 101000022: $1 from Al to Jbelly at 101010001.
+Transaction executed at 101001001: $1 from Jbelly to Al.
+Insufficient funds to process transaction 1.
+0: Jbelly sent 1 dollar to Al at 101001001.
+There was 1 transaction that was placed between time 101000000 to 20102000000.
+Customer Jbelly account summary:
+Balance: $9999994
+Total # of transactions: 1
 Incoming 0:
-Outgoing 2:
-0: mertg sent 2000 dollars to paoletti at 80302402234.
-1: mertg sent 2000 dollars to paoletti at 80505404434.
-Summary of [80302000000, 80303000000):
-0: mertg sent 2000 dollars to paoletti at 80302402234.
-There was a total of 1 transaction, 281Bank has collected 20 dollars in fees.
+Outgoing 1:
+0: Jbelly sent 1 dollar to Al at 101001001.
+Customer Al account summary:
+Balance: $19996
+Total # of transactions: 1
+Incoming 1:
+0: Jbelly sent 1 dollar to Al at 101001001.
+Outgoing 0:
+281Bank has collected 10 dollars in fees over 1 year 1 month 1 day 1 hours 1 minute 1 second.
