@@ -74,16 +74,6 @@ bool readAndStoreUserData(const std::string &filename, std::unordered_map<std::s
         User newUser;
         try
         {
-            /*
-            unsigned long long balanceULL = std::stoull(userData[3]);
-            if (balanceULL > std::numeric_limits<uint32_t>::max())
-            {
-                std::cerr << "Error: Balance exceeds maximum value for uint32_t." << std::endl;
-                return false; // or handle the error as appropriate
-            }
-            
-            newUser.balance = static_cast<uint32_t>(balanceULL);
-            */
             newUser.timestamp = convertTimestamp(userData[0]);
             newUser.userID = userData[1];
             newUser.PIN = static_cast<uint32_t>(std::stoull(userData[2]));
@@ -99,9 +89,9 @@ bool readAndStoreUserData(const std::string &filename, std::unordered_map<std::s
             std::cerr << "Error: Number out of range encountered: " << e.what() << std::endl;
             continue; // Skip this line and move to the next
         }
-
+        
         // Insert the new user into the hash table, checking for duplicates
-        auto result = userTable.insert({newUser.userID, newUser});
+        auto result = userTable.emplace(newUser.userID, newUser);
         if (!result.second)
         {
             std::cerr << "Duplicate user ID found: " << newUser.userID << ". This entry will be ignored." << std::endl;

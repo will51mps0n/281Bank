@@ -19,8 +19,8 @@ struct User
 {
     uint64_t timestamp;                                       // 8 bytes
     std::set<uint64_t> userIps;                               // Set of IPs - variable size, placed near the top to align with the timestamp
-    std::deque<const Transaction *> userIncomingTransactions; // Deque of pointers to incoming transactions - variable size
-    std::deque<const Transaction *> userOutgoingTransactions; // Deque of pointers to outgoing transactions - variable size
+    std::vector<const Transaction *> userIncomingTransactions; // Deque of pointers to incoming transactions - variable size
+    std::vector<const Transaction *> userOutgoingTransactions; // Deque of pointers to outgoing transactions - variable size
     std::string userID;                                       // Assuming a 24-byte string 8 byte for 64 
     uint32_t balance;                                         // 4 bytes
     uint32_t transactionCountSent = 0;                        // 4 bytes

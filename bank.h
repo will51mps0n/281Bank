@@ -263,16 +263,16 @@ void Bank::processTransactions(uint64_t timeStampInt)
             transactionRecipient->balance += currentTransaction.amount;
             // user incoming and outgoing transactions::
             transactionSet.push_back(currentTransaction);
-            transactionSender->userOutgoingTransactions.push_back(&transactionSet.back());
-            if (transactionSender->userOutgoingTransactions.size() > 10)
+            if (transactionSender->userOutgoingTransactions.size() > 9)
             {
-                transactionSender->userOutgoingTransactions.pop_front();
+                transactionSender->userOutgoingTransactions.erase(transactionSender->userOutgoingTransactions.begin());
+            }
+            transactionSender->userOutgoingTransactions.push_back(&transactionSet.back());
+            if (transactionRecipient->userIncomingTransactions.size() > 9)
+            {
+                transactionRecipient->userIncomingTransactions.erase(transactionRecipient->userIncomingTransactions.begin());
             }
             transactionRecipient->userIncomingTransactions.push_back(&transactionSet.back());
-            if (transactionRecipient->userIncomingTransactions.size() > 10)
-            {
-                transactionRecipient->userIncomingTransactions.pop_front();
-            }
             transactionRecipient->transactionCountReceived++;
             transactionSender->transactionCountSent++;
             if (verbose)
