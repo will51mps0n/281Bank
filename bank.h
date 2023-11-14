@@ -157,7 +157,8 @@ void Bank::login()
         }
         return;
     }
-    it->second.userIps.insert(ip);
+    uint64_t ipInt = convertTimestamp(ip);
+    it->second.userIps.insert(ipInt);
     if (verbose)
     {
         std::cout << "User " << user_id << " logged in." << std::endl;
@@ -168,8 +169,9 @@ void Bank::logout()
 {
     std::string user_id, ip;
     std::cin >> user_id >> ip;
+    uint64_t ipInt = convertTimestamp(ip);
     auto it = users.find(user_id);
-    if ((it == users.end()) || (!it->second.isUserLoggedIn()) || (it->second.userIps.find(ip) == it->second.userIps.end()))
+    if ((it == users.end()) || (!it->second.isUserLoggedIn()) || (it->second.userIps.find(ipInt) == it->second.userIps.end()))
     {
         if (verbose)
         {
@@ -177,7 +179,7 @@ void Bank::logout()
         }
         return;
     }
-    it->second.userIps.erase(ip);
+    it->second.userIps.erase(ipInt);
     if (verbose)
     {
         std::cout << "User " << user_id << " logged out." << std::endl;
@@ -453,7 +455,8 @@ bool Bank::fraudCheck(const std::string &senderStr, const std::string &ip)
 {
     const User &sender = users.find(senderStr)->second;
 
-    auto fraudIt = sender.userIps.find(ip);
+    uint64_t ipInt = convertTimestamp(ip);
+    auto fraudIt = sender.userIps.find(ipInt);
     if (fraudIt == sender.userIps.end())
     {
         if (verbose)

@@ -17,8 +17,8 @@ struct Transaction
     uint64_t executionDate; // 8 bytes
     uint32_t amount;        // 8 bytes
     uint32_t feeAmount = 0; // 8 bytes, initialize to 0
-    std::string recipient;  // Assuming a 32-byte string (small string optimization)
-    std::string sender;     // Assuming a 32-byte string (small string optimization)
+    std::string recipient;  // Assuming a 32-byte string (small string optimization) - change to pointers
+    std::string sender;     // Assuming a 32-byte string (small string optimization) - change to pointer
     uint32_t transactionID; // 4 bytes
     char feeType;           // 1 byte
 
@@ -37,7 +37,7 @@ struct User {
     uint64_t timestamp; // 8 bytes
     uint32_t balance;   // 8 bytes
     uint32_t PIN;
-    std::set<std::string> userIps; // Set of IPs
+    std::set<uint64_t> userIps; // Set of IPs -
     std::string userID; // Assuming a 32-byte string (small string optimization)
     std::deque<const Transaction*> userIncomingTransactions; // Deque of pointers to incoming transactions
     std::deque<const Transaction*> userOutgoingTransactions; // Deque of pointers to outgoing transactions
