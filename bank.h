@@ -257,7 +257,9 @@ void Bank::placeTransaction()
         std::cout << "Transaction placed at " << timeStampInt << ": $" << amt << " from "
                   << sender << " to " << recipient << " at " << execTimeInt << "." << std::endl;
     }
-    transactions.emplace(execTimeInt, std::move(recipient), std::move(sender), amtInt, feeType);
+User* senderPtr = &users.at(sender);
+User* recipientPtr = &users.at(recipient);
+transactions.emplace(execTimeInt, recipientPtr, senderPtr, amtInt, feeType);
     // std::cout << "inserting new transaction" << std::endl;
     // delete newTransaction;
     // std::cout << "transaction: " << newTransaction.transactionID << std::endl;
@@ -286,17 +288,18 @@ void Bank::processTransactions(uint64_t timeStampInt)
         transactions.pop();
         // uint64_t amount = currentTransaction->amount;
 
-        auto senderIt = users.find(currentTransaction.sender);
-        auto recipientIt = users.find(currentTransaction.recipient);
+      User* transactionSender = currentTransaction.sender;
+      User* transactionRecipient = currentTransaction.recipient;
 
-        if (senderIt == users.end() || recipientIt == users.end())
-        {
-            std::cerr << "user error" << std::endl;
-            exit(0); // Handle the case where one or both users are not found
-        }
 
-        User *transactionSender = &(senderIt->second);
-        User *transactionRecipient = &(recipientIt->second);
+        // if (senderIt == users.end() || recipientIt == users.end())
+        // {
+        //     std::cerr << "user error" << std::endl;
+        //     exit(0); // Handle the case where one or both users are not found
+        // }
+
+        // User *transactionSender = &(senderIt->second);
+        // User *transactionRecipient = &(recipientIt->second);
         // Debug:
         // std::cout << "Transaction sender timestamp: " << transactionSender->timestamp << std::endl;
         uint64_t loyaltyTime = (currentTransaction.executionDate) - (transactionSender->timestamp);
@@ -500,9 +503,9 @@ void Bank::listTransactions()
         {
             break;
         }
-        std::cout << transPtr.transactionID << ": " << transPtr.sender
+        std::cout << transPtr.transactionID << ": " << transPtr.sender->userID
                   << " sent " << transPtr.amount << (transPtr.amount == 1 ? " dollar to " : " dollars to ")
-                  << transPtr.recipient << " at " << transPtr.executionDate
+                  << transPtr.recipient->userID << " at " << transPtr.executionDate
                   << "." << std::endl;
         transactionCount++;
     }
@@ -629,9 +632,9 @@ void Bank::customerHistory()
     for (auto *transaction : userIt->second.userIncomingTransactions)
     {
         std::cout << transaction->transactionID
-                  << ": " << transaction->sender << " sent "
-                  << transaction->amount << (transaction->amount == 1 ? " dollar to " : " dollars to ") << transaction->recipient
-                  << " at " << transaction->executionDate << "." << std::endl;
+                  << ": " << transaction->sender->userID << " sent "
+                  << transaction->amount << (transaction->amount == 1 ? " dollar to " : " dollars to ") << transaction->recipient->userID
+                                    << " at " << transaction->executionDate << "." << std::endl;
     }
     std::cout << "Outgoing " << userIt->second.userOutgoingTransactions.size() << ":" << std::endl;
 
@@ -639,8 +642,8 @@ void Bank::customerHistory()
     {
 
         std::cout << transaction->transactionID
-                  << ": " << transaction->sender << " sent "
-                  << transaction->amount << (transaction->amount == 1 ? " dollar to " : " dollars to ") << transaction->recipient
+                  << ": " << transaction->sender->userID << " sent "
+                  << transaction->amount << (transaction->amount == 1 ? " dollar to " : " dollars to ") << transaction->recipient->userID
                   << " at " << transaction->executionDate << "." << std::endl;
     }
 }
@@ -674,9 +677,9 @@ void Bank::summarizeDay()
         if (transPtr->executionDate >= day && transPtr->executionDate < day2)
         {
             std::string amountStr = std::to_string(transPtr->amount) + (transPtr->amount == 1 ? " dollar" : " dollars");
-            std::cout << transPtr->transactionID << ": " << transPtr->sender
+            std::cout << transPtr->transactionID << ": " << transPtr->sender->userID
                       << " sent " << amountStr << " to "
-                      << transPtr->recipient << " at " << transPtr->executionDate
+                      << transPtr->recipient->userID << " at " << transPtr->executionDate
                       << "." << std::endl;
 
             transactionCount++;

@@ -11,20 +11,22 @@
 #include<set>
 #include <list>
 //forward declare user for transaction struct --
+struct User;
 
 struct Transaction
 {
     uint64_t executionDate; // 8 bytes
     uint32_t amount;        // 8 bytes
     uint32_t feeAmount = 0; // 8 bytes, initialize to 0
-    std::string recipient;  // Assuming a 32-byte string (small string optimization) - change to pointers
-    std::string sender;     // Assuming a 32-byte string (small string optimization) - change to pointer
+    User* recipient;  // Change to pointer
+    User* sender;     // Change to pointer
     uint32_t transactionID; // 4 bytes
     char feeType;           // 1 byte
 
-    Transaction(uint64_t execDate, std::string receive, std::string send, uint32_t amt, char ft)
-        : executionDate(execDate), amount(amt), recipient(std::move(receive)), sender(std::move(send)), transactionID(getNextTransactionID()), feeType(ft) {}
-    
+Transaction(uint64_t execDate, User* receive, User* send, uint32_t amt, char ft)
+    : executionDate(execDate), amount(amt), recipient(receive), sender(send), 
+      transactionID(getNextTransactionID()), feeType(ft) {}
+
     private:
     static uint32_t getNextTransactionID()
     {
